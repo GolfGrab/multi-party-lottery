@@ -13,6 +13,7 @@ contract MultiPartyLottery is Ownable, CommitReveal {
     uint256 public num_participants = 0;
     uint16 constant MinimumChoice = 0;
     uint16 constant MaximumChoice = 999;
+    uint256 constant LotteryFee = 0.001 ether;
 
     struct Lottery {
         uint16 choice; // 0 - 999
@@ -45,7 +46,10 @@ contract MultiPartyLottery is Ownable, CommitReveal {
     }
 
     function commitHashedLottery(bytes32 _hashedLottery) public payable {
-        require(msg.value == 0.001 ether, "require 0.001 ether to participate");
+        require(
+            msg.value == LotteryFee,
+            "require LotteryFee (0.001 ether) to participate"
+        );
         require(
             gameStage == 1,
             "MultiPartyLottery::commitHashLottery: Game is not in commit stage"
@@ -89,7 +93,7 @@ contract MultiPartyLottery is Ownable, CommitReveal {
     function revealLottery(
         uint256 _lotteryId,
         uint16 _choice,
-        bytes32 _salt
+        string memory _salt
     ) public {
         require(
             gameStage == 2,
@@ -163,14 +167,14 @@ contract MultiPartyLottery is Ownable, CommitReveal {
     }
 
     function _ownerGetAllReward() private {
-        payable(owner()).transfer(0.001 ether * num_participants);
+        payable(owner()).transfer(LotteryFee * num_participants);
     }
 
     function _rewardWinner(address _winner) private {
         // winner get 0.001 ETH * num_participants * 0.98
         // owner get 0.001 ETH * num_participants * 0.02
-        uint256 winnerReward = (0.001 ether * num_participants * 98) / 100;
-        uint256 ownerReward = (0.001 ether * num_participants * 2) / 100;
+        uint256 winnerReward = (LotteryFee * num_participants * 98) / 100;
+        uint256 ownerReward = (LotteryFee * num_participants * 2) / 100;
 
         payable(_winner).transfer(winnerReward);
         payable(owner()).transfer(ownerReward);
@@ -203,6 +207,6 @@ contract MultiPartyLottery is Ownable, CommitReveal {
             "MultiPartyLottery::withdraw: You have already withdrawn this lottery"
         );
         lotteries[lotteryId].isWithdrawn = true;
-        payable(msg.sender).transfer(0.001 ether);
+        payable(msg.sender).transfer(LotteryFee);
     }
 }

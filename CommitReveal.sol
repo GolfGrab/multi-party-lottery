@@ -31,7 +31,7 @@ contract CommitReveal {
     function revealChoice(
         uint256 lotteryId,
         uint16 choice,
-        bytes32 salt
+        string memory salt
     ) internal {
         //make sure it hasn't been revealed yet and set it to revealed
         require(
@@ -46,11 +46,11 @@ contract CommitReveal {
         );
         emit RevealChoice(msg.sender, choice, salt);
     }
-    event RevealChoice(address sender, uint16 choice, bytes32 salt);
+    event RevealChoice(address sender, uint16 choice, string salt);
 
     function getSaltedHash(
         uint16 choice,
-        bytes32 salt
+        string memory salt
     ) public view returns (bytes32) {
         return keccak256(abi.encodePacked(address(this), choice, salt));
     }

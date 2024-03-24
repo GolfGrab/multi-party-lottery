@@ -13,7 +13,7 @@ contract Ownable {
     }
 
     modifier onlyOwner() {
-        require(isOwner());
+        require(isOwner(), "Ownable: only owner can call this function");
         _;
     }
 
