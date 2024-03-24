@@ -16,6 +16,12 @@
 					},
 					{
 						"indexed": false,
+						"internalType": "uint256",
+						"name": "lotteryId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
 						"internalType": "bytes32",
 						"name": "dataHash",
 						"type": "bytes32"
@@ -41,31 +47,31 @@
 					},
 					{
 						"indexed": false,
-						"internalType": "bytes32",
-						"name": "answer",
-						"type": "bytes32"
+						"internalType": "uint16",
+						"name": "choice",
+						"type": "uint16"
 					},
 					{
 						"indexed": false,
-						"internalType": "bytes32",
+						"internalType": "string",
 						"name": "salt",
-						"type": "bytes32"
+						"type": "string"
 					}
 				],
-				"name": "RevealAnswer",
+				"name": "RevealChoice",
 				"type": "event"
 			},
 			{
 				"inputs": [
 					{
-						"internalType": "bytes32",
-						"name": "data",
-						"type": "bytes32"
+						"internalType": "uint16",
+						"name": "choice",
+						"type": "uint16"
 					},
 					{
-						"internalType": "bytes32",
+						"internalType": "string",
 						"name": "salt",
-						"type": "bytes32"
+						"type": "string"
 					}
 				],
 				"name": "getSaltedHash",
@@ -108,11 +114,11 @@
 	},
 	"sources": {
 		"CommitReveal.sol": {
-			"keccak256": "0xf6d84c1dc8d299ba0027e60c010315b11dd1ab4ae8727323264085048be9a21d",
+			"keccak256": "0xd0bc004ebb2d1060504b50caeed5de1cd894f46ec93ce7ed6053c0926f57d60d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7dd9f0dc8b0622f8a19fcd63ba915f1899609e5cac73ab0781c0259124562464",
-				"dweb:/ipfs/QmTd4RRX9b7b4ruhqbX1WnbuibrZRUxQnKL5NohkbcCcDE"
+				"bzz-raw://348c1af5aadc6bb29f639df157f3b1e04870d3107e276558b8e669d412c72da9",
+				"dweb:/ipfs/QmccYDqbdqrf62cn9vpfXnbJyqLHfPRCvkrb4Mz2R52eGc"
 			]
 		}
 	},

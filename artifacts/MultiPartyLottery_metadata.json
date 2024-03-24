@@ -6,6 +6,32 @@
 	"output": {
 		"abi": [
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_maximumPlayerLimit",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_commitLotteryStageDuration",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_revealStageDuration",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_awardStageDuration",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -13,6 +39,12 @@
 						"internalType": "address",
 						"name": "sender",
 						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "lotteryId",
+						"type": "uint256"
 					},
 					{
 						"indexed": false,
@@ -41,59 +73,110 @@
 					},
 					{
 						"indexed": false,
-						"internalType": "bytes32",
-						"name": "answer",
-						"type": "bytes32"
+						"internalType": "uint16",
+						"name": "choice",
+						"type": "uint16"
 					},
 					{
 						"indexed": false,
-						"internalType": "bytes32",
+						"internalType": "string",
 						"name": "salt",
-						"type": "bytes32"
+						"type": "string"
 					}
 				],
-				"name": "RevealAnswer",
+				"name": "RevealChoice",
 				"type": "event"
 			},
 			{
-				"anonymous": false,
-				"inputs": [
+				"inputs": [],
+				"name": "N",
+				"outputs": [
 					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "sender",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "bytes32",
-						"name": "revealHash",
-						"type": "bytes32"
-					},
-					{
-						"indexed": false,
 						"internalType": "uint256",
-						"name": "random",
+						"name": "",
 						"type": "uint256"
 					}
 				],
-				"name": "RevealHash",
-				"type": "event"
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "T1",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "T2",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "T3",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "awardLottery",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			},
 			{
 				"inputs": [
 					{
 						"internalType": "bytes32",
-						"name": "data",
+						"name": "_hashedLottery",
 						"type": "bytes32"
 					}
 				],
-				"name": "getHash",
+				"name": "commitHashedLottery",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getGameStage",
 				"outputs": [
 					{
-						"internalType": "bytes32",
+						"internalType": "string",
 						"name": "",
-						"type": "bytes32"
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -102,14 +185,14 @@
 			{
 				"inputs": [
 					{
-						"internalType": "bytes32",
-						"name": "data",
-						"type": "bytes32"
+						"internalType": "uint16",
+						"name": "choice",
+						"type": "uint16"
 					},
 					{
-						"internalType": "bytes32",
+						"internalType": "string",
 						"name": "salt",
-						"type": "bytes32"
+						"type": "string"
 					}
 				],
 				"name": "getSaltedHash",
@@ -121,6 +204,120 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "isOwner",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "lotteries",
+				"outputs": [
+					{
+						"internalType": "uint16",
+						"name": "choice",
+						"type": "uint16"
+					},
+					{
+						"internalType": "bool",
+						"name": "isCommitted",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "isRevealed",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "isWithdrawn",
+						"type": "bool"
+					},
+					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_lotteryId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint16",
+						"name": "_choice",
+						"type": "uint16"
+					},
+					{
+						"internalType": "string",
+						"name": "_salt",
+						"type": "string"
+					}
+				],
+				"name": "revealLottery",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "startStageTime",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "lotteryId",
+						"type": "uint256"
+					}
+				],
+				"name": "withdraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -152,19 +349,27 @@
 	},
 	"sources": {
 		"CommitReveal.sol": {
-			"keccak256": "0xa77f490c80ac311d2e93fa2078cad32065966dec0cb5ea3afa9c9efaa8a7c949",
-			"license": "GPL-3.0",
+			"keccak256": "0xd0bc004ebb2d1060504b50caeed5de1cd894f46ec93ce7ed6053c0926f57d60d",
+			"license": "MIT",
 			"urls": [
-				"bzz-raw://882992451b2a2ca0a40aa5d8a6a7217119b27471f4a5b16ee33672805dad008a",
-				"dweb:/ipfs/QmYTg69kWFny4MosfC3KVtuzgRLN7USfsgUuq7kgNn8CLk"
+				"bzz-raw://348c1af5aadc6bb29f639df157f3b1e04870d3107e276558b8e669d412c72da9",
+				"dweb:/ipfs/QmccYDqbdqrf62cn9vpfXnbJyqLHfPRCvkrb4Mz2R52eGc"
+			]
+		},
+		"Ownable.sol": {
+			"keccak256": "0xb06a7643315945954a58a53d076711db24f64c611e77c0028de8fe461cc934ba",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b0a4ff6d328167c2547d13c5b5865d413eed2e386b47a872cd24d1d4d7780cdb",
+				"dweb:/ipfs/QmQDswsPMXGLchnA9tJJQUNtXrdy62BAUAtkaQmTmpRzKQ"
 			]
 		},
 		"lottery.sol": {
-			"keccak256": "0xa79567214f9c1761724c72126f01b4538d5244f3ca45f01cb3dd811dbecee782",
+			"keccak256": "0x8191c9f29d0b14d0fbb355f60d4547174a6a1f30e13f2d5b71179971b350a48f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2d1226b6263c00c1c1f83119471616c085542627219fd77444847a8df93eb808",
-				"dweb:/ipfs/QmPuhT9RiguFX6JST8USECjCPpZkxN1gJTcYWwzrdFzh2V"
+				"bzz-raw://aaa02a1d5adb042db9fae46cd908622c02c399e241ff1143decdadcca8a09d25",
+				"dweb:/ipfs/QmaM1mN2LoReEnh1PuptC6YGzZwLiGbWAD9PkxJYgdyesx"
 			]
 		}
 	},
