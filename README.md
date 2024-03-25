@@ -96,7 +96,7 @@ function commitHashedLottery(
 - if some player not reveal the choice within T2 seconds, the player will forfeit the ETH
 - after T2 seconds, the game will proceed to stage 3
 
-````solidity
+```solidity
 function revealLottery(
         uint256 _lotteryId,
         uint16 _choice,
@@ -118,7 +118,7 @@ function revealLottery(
         lotteries[_lotteryId].isRevealed = true;
         _num_revealed++;
     }
-    ```
+```
 
 ### 3. Determining the Winner
 
@@ -173,7 +173,7 @@ function awardLottery() public onlyOwner {
         _rewardWinner(goodLotteries[winnerIndex].addr);
         _resetGame();
     }
-    ```
+```
 
 ### 4. Withdrawing Funds
 
@@ -203,5 +203,5 @@ function withdraw(uint256 lotteryId) public {
             _resetGame();
         }
     }
-    ```
-````
+```
+
