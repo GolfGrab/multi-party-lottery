@@ -146,7 +146,7 @@ contract MultiPartyLottery is Ownable, CommitReveal {
         Lottery[] memory goodLotteries = new Lottery[](_num_participants);
         uint256 goodLotteriesCount = 0;
 
-        for (uint256 i = 0; i < N; i++) {
+        for (uint256 i = 0; i < _num_participants; i++) {
             if (
                 lotteries[i].isRevealed &&
                 lotteries[i].choice >= MinimumChoice &&
@@ -162,11 +162,9 @@ contract MultiPartyLottery is Ownable, CommitReveal {
                     .isWithdrawn;
 
                 goodLotteriesCount++;
+            } else {
+                _withdrawBadLottery(i);
             }
-        }
-
-        if (goodLotteriesCount == 0) {
-            _ownerGetAllReward();
         }
 
         // find the winner index by calculating hash of all XORed choices
@@ -181,17 +179,23 @@ contract MultiPartyLottery is Ownable, CommitReveal {
         _resetGame();
     }
 
-    function _ownerGetAllReward() private {
-        payable(owner()).transfer(LotteryFee * _num_participants);
-    }
-
     function _rewardWinner(address _winner) private {
         // winner get 0.001 ETH * _num_participants * 0.98
         // owner get 0.001 ETH * _num_participants * 0.02
-        uint256 winnerReward = (LotteryFee * _num_participants * 98) / 100;
-        uint256 ownerReward = (LotteryFee * _num_participants * 2) / 100;
+        uint256 winnerReward = (LotteryFee * _num_revealed * 98) / 100;
+        uint256 ownerReward = (LotteryFee * _num_revealed * 2) / 100;
 
         payable(_winner).transfer(winnerReward);
+        payable(owner()).transfer(ownerReward);
+    }
+
+    function _withdrawBadLottery(uint256 _lotteryId) private {
+        // bad lottery withdraw 98% of the lottery fee
+        // owner get 2% of the lottery fee
+        uint256 badLotteryWithdraw = (LotteryFee * 98) / 100;
+        uint256 ownerReward = (LotteryFee * 2) / 100;
+
+        payable(lotteries[_lotteryId].addr).transfer(badLotteryWithdraw);
         payable(owner()).transfer(ownerReward);
     }
 

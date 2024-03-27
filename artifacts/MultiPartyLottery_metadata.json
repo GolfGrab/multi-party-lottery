@@ -155,7 +155,13 @@
 					}
 				],
 				"name": "commitHashedLottery",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"stateMutability": "payable",
 				"type": "function"
 			},
@@ -365,11 +371,11 @@
 			]
 		},
 		"lottery.sol": {
-			"keccak256": "0x8191c9f29d0b14d0fbb355f60d4547174a6a1f30e13f2d5b71179971b350a48f",
+			"keccak256": "0x5b9298571ec46778b7506c53e9cdaf6ff406524868e3e9824c30661f1fd3054e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://aaa02a1d5adb042db9fae46cd908622c02c399e241ff1143decdadcca8a09d25",
-				"dweb:/ipfs/QmaM1mN2LoReEnh1PuptC6YGzZwLiGbWAD9PkxJYgdyesx"
+				"bzz-raw://6a32b8d33a955fabebe93f41b9a4520b6945d258aeba31b1803a568704a90968",
+				"dweb:/ipfs/QmZoC3Cic2VQZzqTbR2dxften5F6ysQSggqQqPbCWdskQK"
 			]
 		}
 	},
